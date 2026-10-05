@@ -1,1 +1,58 @@
-hii
+MySQL Questions and Answers
+Question 1
+
+Create a table called restaurants with the following columns:
+
+id – INT, Primary Key, Auto Increment
+
+name – VARCHAR(100)
+
+location – VARCHAR(100)
+
+rating – DECIMAL(2,1)
+
+Answer
+CREATE TABLE restaurants (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100),
+    location VARCHAR(100),
+    rating DECIMAL(2,1)
+);
+
+Question 2
+
+Use the ALTER TABLE command to add a new column average_cost (INT) to the restaurants table.
+
+Answer
+ALTER TABLE restaurants
+ADD COLUMN average_cost INT;
+
+Question 3
+
+Write a SQL statement to drop the restaurants table.
+
+Answer
+DROP TABLE restaurants;
+
+
+⚠️ DROP TABLE permanently removes the table and its data, so use it carefully.
+
+Question 4
+
+Create a new table called playlists for a music app like Spotify with the following columns:
+
+playlist_id – INT, Primary Key, Auto Increment
+
+title – VARCHAR(50)
+
+created_by – VARCHAR(50)
+
+created_at – DATE
+
+Answer
+CREATE TABLE playlists (
+    playlist_id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(50),
+    created_by VARCHAR(50),
+    created_at DATE
+);
