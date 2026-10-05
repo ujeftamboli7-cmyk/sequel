@@ -1,0 +1,67 @@
+MySQL – INSERT, UPDATE, DELETE & SELECT Questions & Answers
+Q1. Create Restaurants Table and Insert Sample Data
+
+Question:
+Create a SQL table called Restaurants with columns: id (INT, auto-increment), name (VARCHAR), cuisine (VARCHAR), rating (DECIMAL), and city (VARCHAR). Insert 5 sample restaurants into the table, each with a different cuisine and rating.
+
+Answer:
+
+CREATE TABLE Restaurants (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    cuisine VARCHAR(100),
+    rating DECIMAL(2,1),
+    city VARCHAR(100)
+);
+
+INSERT INTO Restaurants (name, cuisine, rating, city)
+VALUES
+('Spice Villa', 'Indian', 4.5, 'Ahmedabad'),
+('Pizza Palace', 'Italian', 4.2, 'Ahmedabad'),
+('Sushi World', 'Japanese', 4.8, 'Mumbai'),
+('Taco House', 'Mexican', 3.4, 'Delhi'),
+('Burger Hub', 'American', 3.8, 'Ahmedabad');
+
+Q2. Update Restaurant Rating
+
+Question:
+Write a SQL UPDATE statement to change the rating of the restaurant named Spice Villa to 4.7 in the Restaurants table.
+
+Answer:
+
+UPDATE Restaurants
+SET rating = 4.7
+WHERE name = 'Spice Villa';
+
+Q3. Delete Restaurants with Low Ratings
+
+Question:
+Delete all restaurants from the Restaurants table where the rating is less than 3.5.
+
+Answer:
+
+DELETE FROM Restaurants
+WHERE rating < 3.5;
+
+Q4. Fetch Top 2 Restaurants in Ahmedabad
+
+Question:
+Use a SELECT query with WHERE and LIMIT to fetch the top 2 restaurants in the city Ahmedabad with a rating above 4.0.
+
+Answer:
+
+SELECT *
+FROM Restaurants
+WHERE city = 'Ahmedabad'
+  AND rating > 4.0
+ORDER BY rating DESC
+LIMIT 2;
+
+
+Explanation:
+
+WHERE filters restaurants by city and rating.
+
+ORDER BY rating DESC shows the highest-rated restaurants first.
+
+LIMIT 2 restricts the result to the top 2 restaurants.
