@@ -1,0 +1,107 @@
+
+QUESTION 1:
+Install MySQL Workbench on your computer, connect to the local MySQL server, and take a screenshot of the default databases shown in the Schemas panel.
+
+ANSWER:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SQL</title>
+</head>
+<body>
+
+    <h2>My Image</h2>
+
+   <img src="desk.sql.png" alt="Desk">
+
+
+</body>
+</html>
+
+
+============================================================
+
+QUESTION 2:
+Create a new database called InstaClone in MySQL Workbench, then create a table named Users with columns: user_id (INT, primary key), username (VARCHAR), email (VARCHAR), and followers_count (INT).
+
+ANSWER:
+
+The InstaClone database and Users table were created using the following SQL commands:
+
+CREATE DATABASE InstaClone;
+
+USE InstaClone;
+
+CREATE TABLE Users (
+user_id INT PRIMARY KEY,
+username VARCHAR(100),
+email VARCHAR(150),
+followers_count INT
+);
+
+============================================================
+
+QUESTION 3:
+Insert 3 sample users into the Users table you created, using realistic Instagram-style usernames and follower counts.
+
+ANSWER:
+
+Three sample users were inserted into the Users table using the following SQL command:
+
+INSERT INTO Users (user_id, username, email, followers_count)
+VALUES
+(1, 'travelwithalex', 'alex@example.com', 12500),
+(2, 'foodie_diaries', 'foodie@example.com', 8700),
+(3, 'techwithsam', 'sam@example.com', 25300);
+
+============================================================
+
+QUESTION 4:
+Create another table in the InstaClone database called Posts with columns: post_id (INT, primary key), user_id (INT), caption (VARCHAR), and post_date (DATE). Add a foreign key from Posts.user_id to Users.user_id to establish a relationship.
+
+ANSWER:
+
+A Posts table was created with post_id, user_id, caption, and post_date columns. The user_id column was connected to the Users table using a foreign key.
+
+The following SQL command was used:
+
+CREATE TABLE Posts (
+post_id INT PRIMARY KEY,
+user_id INT,
+caption VARCHAR(255),
+post_date DATE,
+FOREIGN KEY (user_id) REFERENCES Users(user_id)
+);
+
+============================================================
+
+QUESTION 5:
+Write a short comparison (3-4 lines each) of MySQL, PostgreSQL, Oracle, and SQLite, focusing on where each one is commonly used (for example: web apps, mobile apps, enterprise systems, etc.).
+
+ANSWER:
+
+MySQL
+
+MySQL is a popular relational database management system commonly used for websites and web applications.
+It is widely used with technologies such as PHP, Java, and Python.
+MySQL is suitable for applications that require a reliable and scalable database.
+
+PostgreSQL
+
+PostgreSQL is an advanced open-source relational database system known for its powerful features.
+It is commonly used for web applications, data analysis, and applications requiring complex queries.
+It is also suitable for large and scalable systems.
+
+Oracle
+
+Oracle Database is a powerful enterprise-level relational database management system.
+It is commonly used by large organizations, banks, government institutions, and enterprise systems.
+It provides advanced security, scalability, and transaction management features.
+
+SQLite
+
+SQLite is a lightweight, serverless relational database system that stores the complete database in a single file.
+It is commonly used in mobile applications, desktop applications, and embedded systems.
+SQLite is useful for small applications where a separate database server is not required.
+
