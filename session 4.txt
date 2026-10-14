@@ -1,0 +1,40 @@
+SQL Playlist Assignment
+1. Create a Playlist Table and Insert 5 Sample Records
+CREATE TABLE Playlist (
+    id INT PRIMARY KEY,
+    song_name VARCHAR(100),
+    artist VARCHAR(100),
+    genre VARCHAR(50),
+    play_count INT
+);
+
+INSERT INTO Playlist (id, song_name, artist, genre, play_count)
+VALUES
+(1, 'Blinding Lights', 'The Weeknd', 'Pop', 150),
+(2, 'Shape of You', 'Ed Sheeran', 'Pop', 200),
+(3, 'Lose Yourself', 'Eminem', 'Hip-Hop', 120),
+(4, 'Gods Plan', 'Drake', 'Hip-Hop', 180),
+(5, 'Perfect', 'Ed Sheeran', 'Romance', 90);
+
+2. Display Song Name and Artist Using an Alias
+SELECT song_name, artist AS Singer
+FROM Playlist;
+
+3. Find Pop Songs with More Than 100 Plays
+SELECT *
+FROM Playlist
+WHERE genre = 'Pop'
+  AND play_count > 100
+ORDER BY play_count DESC;
+
+4. Count Songs Belonging to the Hip-Hop Genre
+SELECT COUNT(*) AS total_hiphop_songs
+FROM Playlist
+WHERE genre = 'Hip-Hop';
+
+5. Calculate Total Plays for Each Genre
+SELECT genre, SUM(play_count) AS total_plays
+FROM Playlist
+GROUP BY genre;
+
+
