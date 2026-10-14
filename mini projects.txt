@@ -1,0 +1,68 @@
+SQL : Playlists and Stored Procedures
+
+Question 1: Create a Playlists Table
+
+Answer:
+
+CREATE TABLE playlists (
+    playlist_id INT PRIMARY KEY,
+    user_id INT,
+    name VARCHAR(100),
+    created_at DATETIME,
+    FOREIGN KEY (user_id) REFERENCES SpotifyUser(user_id)
+);
+
+Question 2: Insert Three Sample Records
+
+Answer:
+
+INSERT INTO playlists
+    (playlist_id, user_id, name, created_at)
+VALUES
+    (1, 1, 'Workout Mix', '2026-10-01 08:00:00'),
+    (2, 2, 'Chill Vibes', '2026-10-05 19:30:00'),
+    (3, 3, 'Top Hits', '2026-10-10 12:00:00');
+
+Question 3: Rename a Playlist
+
+Answer:
+
+UPDATE playlists
+SET name = 'Evening Chill'
+WHERE name = 'Chill Vibes'
+  AND user_id = 2;
+
+Question 4: Delete a Specific Playlist
+
+Answer:
+
+DELETE FROM playlists
+WHERE name = 'Workout Mix'
+  AND user_id = 1;
+
+Question 5: Create a Stored Procedure to Count Monthly Playlists
+
+Answer:
+
+DELIMITER //
+
+CREATE PROCEDURE GetMonthlyPlaylistCount(
+    IN p_user_id INT,
+    IN p_month INT
+)
+BEGIN
+    SELECT COUNT(*) AS total_playlists
+    FROM playlists
+    WHERE user_id = p_user_id
+      AND MONTH(created_at) = p_month;
+END //
+
+DELIMITER ;
+
+
+Example:
+
+CALL GetMonthlyPlaylistCount(1, 10);
+
+
+This returns the number of playlists created by user 1 during October.
