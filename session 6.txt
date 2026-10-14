@@ -1,0 +1,81 @@
+: GROUP BY, HAVING and Subqueries
+Question 1: Count Total Orders Placed by Each User
+
+Objective: Display each user_id along with the total number of orders placed by that user.
+
+SELECT
+    user_id,
+    COUNT(*) AS order_count
+FROM orders
+GROUP BY user_id;
+
+
+Explanation:
+
+COUNT(*) counts the number of orders.
+GROUP BY user_id groups orders belonging to the same user.
+order_count is an alias for the total number of orders.
+Question 2: Find Restaurants with an Average Rating Above 4.0
+
+Objective: Display the names of restaurants whose average rating is greater than 4.0.
+
+Assumption: The restaurants table contains restaurant_id, name, and rating columns, with one rating per row.
+
+SELECT
+    name,
+    AVG(rating) AS average_rating
+FROM restaurants
+GROUP BY restaurant_id, name
+HAVING AVG(rating) > 4.0;
+
+
+Explanation:
+
+AVG(rating) calculates the average rating for each restaurant.
+GROUP BY restaurant_id, name groups ratings by restaurant.
+HAVING AVG(rating) > 4.0 filters groups whose average rating exceeds 4.0.
+Question 3: Find Users Who Made a Single Payment Above ₹2000
+
+Objective: Use a subquery to find the user IDs associated with at least one payment greater than ₹2000.
+
+SELECT DISTINCT user_id
+FROM payments
+WHERE user_id IN (
+    SELECT user_id
+    FROM payments
+    WHERE amount > 2000
+);
+
+
+Explanation:
+
+The subquery finds users who made a payment greater than ₹2000.
+The outer query returns their user_id values.
+DISTINCT prevents duplicate user IDs in the result.
+
+Note: This query means at least one individual transaction exceeded ₹2000; it does not mean the user's total payments exceeded ₹2000.
+
+Question 4: Find Movies with an Average Rating Above the Overall Average
+
+Objective: Display the names of movies whose average rating is higher than the average rating of all movies.
+
+Assumption: The movies table contains movie_id, movie_name, and rating columns, with ratings stored in individual rows.
+
+SELECT
+    movie_name,
+    AVG(rating) AS average_rating
+FROM movies
+GROUP BY movie_id, movie_name
+HAVING AVG(rating) > (
+    SELECT AVG(rating)
+    FROM movies
+);
+
+
+Explanation:
+
+The subquery calculates the overall average rating across all movie ratings.
+GROUP BY movie_id, movie_name calculates the average rating for each movie.
+HAVING displays only movies whose average rating is above the overall average.
+Conclusion
+
