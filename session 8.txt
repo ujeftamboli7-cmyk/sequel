@@ -1,0 +1,136 @@
+SQL : PL/SQL Blocks, Loops, Cursors and Exceptions
+Question 1: Declare Variables and Print User Details
+
+Objective: Declare variables for a user's name and age, assign values, and display them using DBMS_OUTPUT.PUT_LINE.
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_name VARCHAR2(50) := 'Rahul';
+    v_age NUMBER := 22;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('User Name: ' || v_name);
+    DBMS_OUTPUT.PUT_LINE('User Age: ' || v_age);
+END;
+/
+
+
+Explanation:
+
+VARCHAR2 stores the user's name.
+NUMBER stores the user's age.
+DBMS_OUTPUT.PUT_LINE prints the values.
+Question 2: Check Eligibility for Free Delivery
+
+Objective: Use an IF-ELSE statement to check whether an order amount is above 500.
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_order_amount NUMBER := 750;
+BEGIN
+    IF v_order_amount > 500 THEN
+        DBMS_OUTPUT.PUT_LINE(
+            'Eligible for free delivery'
+        );
+    ELSE
+        DBMS_OUTPUT.PUT_LINE(
+            'Delivery charges apply'
+        );
+    END IF;
+END;
+/
+
+
+Explanation:
+
+If the order amount is greater than 500, the user is eligible for free delivery.
+Otherwise, the program prints Delivery charges apply.
+Question 3: Print Numbers from 1 to 5 Using a LOOP
+
+Objective: Use a simple loop, a counter variable, and EXIT WHEN to print numbers from 1 to 5.
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_counter NUMBER := 1;
+BEGIN
+    LOOP
+        DBMS_OUTPUT.PUT_LINE(v_counter);
+
+        v_counter := v_counter + 1;
+
+        EXIT WHEN v_counter > 5;
+    END LOOP;
+END;
+/
+
+
+Explanation:
+
+The counter starts at 1.
+Each iteration prints the current number and increments the counter.
+EXIT WHEN stops the loop after 5 has been printed.
+Question 4: Display Product Names Using a Cursor
+
+Objective: Declare a cursor to fetch all product names from the PRODUCTS table and print them.
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    CURSOR product_cursor IS
+        SELECT product_name
+        FROM PRODUCTS;
+
+    v_product_name PRODUCTS.PRODUCT_NAME%TYPE;
+BEGIN
+    OPEN product_cursor;
+
+    LOOP
+        FETCH product_cursor INTO v_product_name;
+
+        EXIT WHEN product_cursor%NOTFOUND;
+
+        DBMS_OUTPUT.PUT_LINE(v_product_name);
+    END LOOP;
+
+    CLOSE product_cursor;
+END;
+/
+
+
+Explanation:
+
+The cursor selects all product names.
+FETCH retrieves one product name at a time.
+%NOTFOUND exits the loop when no more rows are available.
+CLOSE releases the cursor after processing.
+Question 5: Handle Division by Zero Using an Exception
+
+Objective: Divide two numbers and handle the ZERO_DIVIDE exception if the divisor is zero.
+
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_num1 NUMBER := 100;
+    v_num2 NUMBER := 0;
+    v_result NUMBER;
+BEGIN
+    v_result := v_num1 / v_num2;
+
+    DBMS_OUTPUT.PUT_LINE('Result: ' || v_result);
+
+EXCEPTION
+    WHEN ZERO_DIVIDE THEN
+        DBMS_OUTPUT.PUT_LINE('Cannot divide by zero');
+END;
+/
+
+
+Explanation:
+
+The program divides v_num1 by v_num2.
+If the divisor is zero, Oracle raises the ZERO_DIVIDE exception.
+The EXCEPTION section catches it and prints Cannot divide by zero.
+If the divisor is nonzero, the result is printed normally.
+Conclusion
