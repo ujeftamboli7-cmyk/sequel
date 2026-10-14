@@ -1,0 +1,102 @@
+SQL: Constraints, Views and Queries
+Question 1: Create a Restaurant Table with Constraints
+
+Objective: Create a Restaurant table with a primary key and NOT NULL constraints on name and location.
+
+CREATE TABLE Restaurant (
+    id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    location VARCHAR(100) NOT NULL,
+    cuisine VARCHAR(50)
+);
+
+
+Explanation:
+
+PRIMARY KEY uniquely identifies each restaurant.
+NOT NULL ensures that name and location cannot be empty (NULL).
+Question 2: Create a FoodOrder Table with a Foreign Key
+
+Objective: Create a FoodOrder table and link it to the Restaurant table using a foreign key.
+
+CREATE TABLE FoodOrder (
+    order_id INT PRIMARY KEY,
+    restaurant_id INT,
+    user_id INT,
+    order_total DECIMAL(10, 2),
+    FOREIGN KEY (restaurant_id)
+        REFERENCES Restaurant(id)
+);
+
+
+Explanation:
+
+order_id is the primary key.
+restaurant_id is a foreign key referencing Restaurant(id).
+The foreign key ensures that a non-NULL restaurant ID matches an existing restaurant.
+Question 3: Create SpotifyUser Table and Insert 6 Records
+
+Objective: Create a SpotifyUser table with UNIQUE and NOT NULL constraints, then insert six sample records.
+
+CREATE TABLE SpotifyUser (
+    user_id INT PRIMARY KEY,
+    username VARCHAR(100) UNIQUE,
+    email VARCHAR(150) NOT NULL,
+    subscription_type VARCHAR(50)
+);
+
+INSERT INTO SpotifyUser
+    (user_id, username, email, subscription_type)
+VALUES
+    (1, 'music_lover', 'music1@example.com', 'Premium'),
+    (2, 'rock_fan', 'rock2@example.com', 'Free'),
+    (3, 'pop_star', 'pop3@example.com', 'Premium'),
+    (4, 'jazz_vibes', 'jazz4@example.com', 'Student'),
+    (5, 'indie_soul', 'indie5@example.com', 'Free'),
+    (6, 'daily_beats', 'beats6@example.com', 'Premium');
+
+
+Explanation:
+
+username UNIQUE prevents duplicate non-NULL usernames.
+email NOT NULL ensures every user has an email value.
+Six sample users are inserted into the table.
+Question 4: Create a TopSpendersView View
+
+Objective: Create a view displaying usernames and order totals for orders above 1000.
+
+Assumption: The FoodOrder table needs to be connected to SpotifyUser through user_id to retrieve usernames. The following query assumes FoodOrder.user_id references SpotifyUser.user_id.
+
+CREATE VIEW TopSpendersView AS
+SELECT
+    SpotifyUser.username,
+    FoodOrder.order_total
+FROM FoodOrder
+INNER JOIN SpotifyUser
+    ON FoodOrder.user_id = SpotifyUser.user_id
+WHERE FoodOrder.order_total > 1000;
+
+
+Explanation:
+
+CREATE VIEW creates a virtual table named TopSpendersView.
+INNER JOIN connects orders with their corresponding users.
+WHERE includes only orders with order_total greater than 1000.
+Question 5: Find Users Who Have Spent More Than 2000
+
+Objective: Display usernames and order totals greater than 2000, using only TopSpendersView.
+
+SELECT
+    username,
+    order_total
+FROM TopSpendersView
+WHERE order_total > 2000
+ORDER BY order_total DESC;
+
+
+Explanation:
+
+The query uses only TopSpendersView, as required.
+WHERE order_total > 2000 filters orders above 2000.
+ORDER BY order_total DESC sorts the highest order totals first.
+Conclusion
