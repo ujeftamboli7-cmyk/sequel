@@ -1,0 +1,64 @@
+: Influencers and Posts
+Question 1: Create Tables and Insert Sample Records
+CREATE TABLE influencers (
+    influencer_id INT PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+CREATE TABLE posts (
+    post_id INT PRIMARY KEY,
+    influencer_id INT,
+    caption VARCHAR(255),
+    FOREIGN KEY (influencer_id)
+        REFERENCES influencers(influencer_id)
+);
+
+INSERT INTO influencers (influencer_id, name)
+VALUES
+(1, 'Aarav Sharma'),
+(2, 'Priya Patel'),
+(3, 'Rohan Mehta');
+
+INSERT INTO posts (post_id, influencer_id, caption)
+VALUES
+(101, 1, 'Travel Diaries'),
+(102, 1, 'My Daily Routine'),
+(103, 2, 'Fashion Trends 2026'),
+(104, 2, 'Healthy Lifestyle Tips'),
+(105, 3, 'Tech Gadgets Review'),
+(106, 3, 'Behind the Scenes');
+
+Question 2: Display Posts Using INNER JOIN
+SELECT
+    posts.caption,
+    influencers.name AS influencer_name
+FROM posts
+INNER JOIN influencers
+    ON posts.influencer_id = influencers.influencer_id;
+
+
+Explanation: INNER JOIN displays only posts that have a matching influencer in both tables.
+
+Question 3: Display All Influencers Using LEFT JOIN
+SELECT
+    influencers.name AS influencer_name,
+    COALESCE(posts.caption, 'No Posts') AS caption
+FROM influencers
+LEFT JOIN posts
+    ON influencers.influencer_id = posts.influencer_id;
+
+
+Explanation: LEFT JOIN displays every influencer, even if they have no posts. COALESCE() replaces a NULL caption with 'No Posts'.
+
+Question 4: Display All Posts Using RIGHT JOIN
+SELECT
+    posts.post_id,
+    posts.caption,
+    influencers.name AS influencer_name
+FROM influencers
+RIGHT JOIN posts
+    ON influencers.influencer_id = posts.influencer_id;
+
+
+Explanation: RIGHT JOIN displays every record from the posts table, including posts without a matching influencer. In that case, the influencer name will be NULL.
+
